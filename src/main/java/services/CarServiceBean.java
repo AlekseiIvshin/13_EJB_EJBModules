@@ -37,5 +37,15 @@ public class CarServiceBean implements CarService {
 		}
 	}
 
+	@Override
+	public Mark getMark(long id) {
+		return carDAO.get(id);
+	}
+
+	@Override
+	public void createMark(Mark mark) {
+		carDAO.create(mark);
+	}
+
 
 }

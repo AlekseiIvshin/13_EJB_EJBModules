@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
 import javax.sql.DataSource;
 
 import domain.Mark;

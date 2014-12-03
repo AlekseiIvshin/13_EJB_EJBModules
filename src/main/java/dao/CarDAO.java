@@ -12,4 +12,7 @@ public interface CarDAO {
 
 	int getCount() throws SQLException;
 	List<Mark> getMarks(int offset, int count) throws SQLException;
+	Mark get(long id);
+	void create(Mark mark);
+	void delete(long id);
 }
