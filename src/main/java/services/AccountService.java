@@ -1,6 +1,7 @@
 package services;
 
 import javax.ejb.Remote;
+import javax.enterprise.context.SessionScoped;
 
 import domain.User;
 

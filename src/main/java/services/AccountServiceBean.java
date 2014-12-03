@@ -2,6 +2,7 @@ package services;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 
 import domain.User;
 
@@ -12,6 +13,7 @@ public class AccountServiceBean implements AccountService {
 	
 	@PostConstruct
 	void init(){
+		System.out.println("Constract account service");
 		user = null;
 	}
 	
