@@ -2,7 +2,6 @@ package services;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
-import javax.enterprise.context.SessionScoped;
 
 import domain.User;
 
@@ -10,21 +9,28 @@ import domain.User;
 public class AccountServiceBean implements AccountService {
 
 	private User user;
-	
+
 	@PostConstruct
-	void init(){
+	void init() {
 		System.out.println("Constract account service");
 		user = null;
 	}
-	
+
 	@Override
 	public void login(User user) {
+		System.out.println("Login");
 		this.user = user;
 	}
 
 	@Override
 	public User getUser() {
 		return user;
+	}
+
+	@Override
+	public void logout() {
+		System.out.println("Logout");
+		user = null;
 	}
 
 }
