@@ -2,6 +2,7 @@
     <wb-module deploy-name="EProjectEJB">
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
         <wb-resource deploy-path="/" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/test/java"/>
         <property name="java-output-path" value="/EProjectEJB/build/classes"/>
         <property name="ClientProject" value="EProjectEJBClient"/>
         <property name="ClientJARURI" value="EProjectEJBClient.jar"/>

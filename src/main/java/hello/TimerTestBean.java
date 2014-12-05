@@ -6,6 +6,8 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import org.jboss.logging.Logger;
+
 import services.CarService;
 
 /**
@@ -15,6 +17,8 @@ import services.CarService;
 @Startup
 public class TimerTestBean implements TimerTest {
 
+	private static final Logger logger = Logger.getLogger(TimerTestBean.class);
+	
 	@EJB
 	Hello hello;
 
@@ -23,16 +27,14 @@ public class TimerTestBean implements TimerTest {
 
 	@PostConstruct
 	void init() {
-		System.out.println("I'm alive!");
-		System.out.println(hello.sayHi("Timer Singleton"));
-		System.out.println("Car count = " + carService.getCarCount());
+		logger.debug("I'm alive");
+		logger.debug(hello.sayHi("Timer Singleton"));
+		logger.debugv("Car count = {0}", carService.getCarCount());
 	}
-
-	/**
-	 * @see TimerTest#timedEvent()
-	 */
-//	@Schedule(minute = "*/2", hour = "*")
+	
+	@Schedule(minute = "*/1", hour = "*")
 	public void timedEvent() {
+		logger.debug("Ping");
 	}
 
 }

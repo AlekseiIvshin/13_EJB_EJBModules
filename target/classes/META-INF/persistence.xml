@@ -6,5 +6,11 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/AutoShow</jta-data-source>
 		<class>domain.MarkEntity</class>
+		<properties>
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_minimal_puts" value="true" />
+		</properties>
+
 	</persistence-unit>
 </persistence>

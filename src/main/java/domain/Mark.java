@@ -8,13 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * @author Aleksei_Ivshin
  *
  */
 @Entity
- @Table(name="mark")
+@Table(name = "mark")
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Mark implements Serializable {
 	/**
 	 * 
@@ -26,11 +31,14 @@ public class Mark implements Serializable {
 	@Column(name = "id")
 	private long id;
 
-	@Column(name="name")
+	@Column(name = "name")
 	private String name;
 
-	@Column(name="deleted")
+	@Column(name = "deleted")
 	private int deleted;
+
+	@Version
+	protected short version;
 
 	public Mark() {
 	}
@@ -38,13 +46,12 @@ public class Mark implements Serializable {
 	public Mark(long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.deleted=0;
+		this.deleted = 0;
 	}
-
 
 	public Mark(String name) {
 		this.name = name;
-		this.deleted=0;
+		this.deleted = 0;
 	}
 
 	public long getId() {
@@ -69,6 +76,14 @@ public class Mark implements Serializable {
 
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+
+	public short getVersion() {
+		return version;
+	}
+
+	public void setVersion(short version) {
+		this.version = version;
 	}
 
 }

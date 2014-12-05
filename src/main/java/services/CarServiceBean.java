@@ -6,18 +6,22 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.interceptor.ExcludeClassInterceptors;
+import javax.interceptor.Interceptors;
 
 import dao.CarDAO;
 import domain.Mark;
 
 @Remote
 @Stateless
+@Interceptors(MarksLogger.class)
 public class CarServiceBean implements CarService {
 
 	@EJB
 	CarDAO carDAO;
 	
 	@Override
+	@ExcludeClassInterceptors
 	public int getCarCount() {
 		try {
 			return carDAO.getCount();
