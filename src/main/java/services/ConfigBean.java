@@ -1,8 +1,7 @@
 package services;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -15,40 +14,53 @@ import javax.ejb.LockType;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Startup
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 @AccessTimeout(value = 5, unit = TimeUnit.SECONDS)
 public class ConfigBean implements Config {
 
-	// TODO: change map type
-	Map<String, String> configurations;
+	private final static Logger logger = LoggerFactory
+			.getLogger(ConfigBean.class);
+
+	Properties configs;
 
 	@PostConstruct
-	void init(){
-		System.out.println("Constract config bean");
-		configurations  = new HashMap<String, String>();
-		configurations.put("markCountPerPage", "10");
+	void init() {
+		logger.info("Construct config bean");
+		configs = initDefaultConfig();
 	}
-	
-	
+
 	@Lock(LockType.WRITE)
 	@Override
 	public void setConfig(String key, String value) {
-		configurations.put(key, value);
+		configs.put(key, value);
 	}
 
 	@Lock(LockType.READ)
 	@Override
 	public String getValue(String key) {
-		return configurations.get(key);
+		return configs.getProperty(key);
 	}
-
 
 	@Lock(LockType.READ)
 	@Override
 	public Set<String> getConfigNames() {
-		return new HashSet<String>(configurations.keySet());
+		Set<String> rs = new HashSet<String>();
+		for (Object o : configs.keySet()) {
+			rs.add(o.toString());
+		}
+		return rs;
+	}
+
+	private Properties initDefaultConfig() {
+		logger.info("Load default configurations.");
+		Properties defaultProp = new Properties();
+		defaultProp.put("view.mark.count.perpage", 10);
+		return defaultProp;
 	}
 
 }

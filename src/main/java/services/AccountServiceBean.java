@@ -3,22 +3,28 @@ package services;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import domain.User;
 
 @Stateful
 public class AccountServiceBean implements AccountService {
 
+	private final static Logger logger = LoggerFactory
+			.getLogger(AccountServiceBean.class);
+	
 	private User user;
 
 	@PostConstruct
 	void init() {
-		System.out.println("Constract account service");
+		logger.info("Construct account service");
 		user = null;
 	}
 
 	@Override
 	public void login(User user) {
-		System.out.println("Login");
+		logger.info("Login");
 		this.user = user;
 	}
 
@@ -29,7 +35,7 @@ public class AccountServiceBean implements AccountService {
 
 	@Override
 	public void logout() {
-		System.out.println("Logout");
+		logger.info("Logout");
 		user = null;
 	}
 

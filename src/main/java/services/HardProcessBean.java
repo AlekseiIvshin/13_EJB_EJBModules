@@ -11,15 +11,20 @@ import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Singleton
 @Startup
 @AccessTimeout(value = 15, unit = TimeUnit.SECONDS)
 @DependsOn("ConfigBean")
 public class HardProcessBean implements HardProcess {
+	private final static Logger logger = LoggerFactory
+			.getLogger(HardProcessBean.class);
 
 	@PostConstruct
 	void init() {
-		System.out.println("Constract HardProceesBean");
+		logger.info("Construct HardProceesBean");
 	}
 
 	@Asynchronous
